@@ -1,40 +1,39 @@
-CREATE TABLE persons (
+CREATE TABLE customers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT,
-    age INTEGER);
+    email TEXT);
     
-INSERT INTO persons (name, age) VALUES ("Bobby McBobbyFace", 12);
-INSERT INTO persons (name, age) VALUES ("Lucy BoBucie", 25);
-INSERT INTO persons (name, age) VALUES ("Banana FoFanna", 14);
-INSERT INTO persons (name, age) VALUES ("Shish Kabob", 20);
-INSERT INTO persons (name, age) VALUES ("Fluffy Sparkles", 8);
-INSERT INTO persons (name, age) VALUES ("Luke Walker", 9); 
+INSERT INTO customers (name, email) VALUES ("Doctor Who", "doctorwho@timelords.com");
+INSERT INTO customers (name, email) VALUES ("Harry Potter", "harry@potter.com");
+INSERT INTO customers (name, email) VALUES ("Captain Awesome", "captain@awesome.com");
 
-CREATE table hobbies (
+CREATE TABLE orders (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    person_id INTEGER,
-    name TEXT);
+    customer_id INTEGER,
+    item TEXT,
+    price REAL);
+
+INSERT INTO orders (customer_id, item, price)
+    VALUES (1, "Sonic Screwdriver", 1000.00);
+INSERT INTO orders (customer_id, item, price)
+    VALUES (2, "High Quality Broomstick", 40.00);
+INSERT INTO orders (customer_id, item, price)
+    VALUES (1, "TARDIS", 1000000.00);
+
+/* BEGIN STEP 1 */
+SELECT customers.name, customers.email, orders.item, orders.price 
+    FROM customers
+    LEFT OUTER JOIN orders
+    ON customers.id = orders.customer_id;
     
-INSERT INTO hobbies (person_id, name) VALUES (1, "drawing");
-INSERT INTO hobbies (person_id, name) VALUES (1, "coding");
-INSERT INTO hobbies (person_id, name) VALUES (2, "dancing");
-INSERT INTO hobbies (person_id, name) VALUES (2, "coding");
-INSERT INTO hobbies (person_id, name) VALUES (3, "skating");
-INSERT INTO hobbies (person_id, name) VALUES (3, "rowing");
-INSERT INTO hobbies (person_id, name) VALUES (3, "drawing");
-INSERT INTO hobbies (person_id, name) VALUES (4, "coding");
-INSERT INTO hobbies (person_id, name) VALUES (4, "dilly-dallying");
-INSERT INTO hobbies (person_id, name) VALUES (4, "meowing");
-INSERT INTO hobbies (person_id, name) VALUES (5, "barking"); 
-
-SELECT persons.name, hobbies.name FROM persons 
-    JOIN hobbies 
-    ON persons.id = hobbies.person_id
-    ; 
-
-SELECT persons.name, hobbies.name FROM persons 
-    JOIN hobbies 
-    ON persons.id = hobbies.person_id
-    WHERE persons.name = "Bobby McBobbyFace"
-    ; 
-
+/* END STEP 1 */ 
+    
+/* SELECT orders.customer_id, SUM(orders.price) AS total_price FROM orders GROUP BY orders.customer_id; */
+    
+SELECT customers.name, customers.email, SUM(orders.price) AS total_price
+    FROM customers
+    LEFT OUTER JOIN orders
+    ON customers.id = orders.customer_id
+    GROUP BY customers.id
+    ORDER BY total_price DESC
+    ;
