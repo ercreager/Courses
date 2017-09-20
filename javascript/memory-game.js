@@ -5,6 +5,53 @@ var sketchProc = function(processingInstance) {
 
         /* Paste the example code here */
 
+        var ctx = canvas.getContext("2d");
+
+        var LeafImage = new Image();
+        LeafImage.src = "assets/Leaf-green.png";
+//        document.body.appendChild(LeafImage);
+
+        var LeafersSeedImage = new Image();
+        LeafersSeedImage.src = "assets/Leafers-seed.png";
+//        document.body.appendChild(LeafersSeedImage);
+
+        var LeafersSeedlingImage = new Image();
+        LeafersSeedlingImage.src = "assets/Leafers-seedling.png";
+//        document.body.appendChild(LeafersSeedlingImage);
+
+        var LeafersSaplingImage = new Image();
+        LeafersSaplingImage.src = "assets/Leafers-sapling.png";
+//        document.body.appendChild(LeafersSaplingImage);
+
+        var LeafersTreeImage = new Image();
+        LeafersTreeImage.src = "assets/Leafers-tree.png";
+//        document.body.appendChild(LeafersTreeImage);
+
+        var LeafersUltimateImage = new Image();
+        LeafersUltimateImage.src = "assets/Leafers-ultimate.png";
+//        document.body.appendChild(LeafersUltimateImage);
+
+
+        var AqualineSeedImage = new Image();
+        AqualineSeedImage.src = "assets/Aqualine-seed.png";
+//         document.body.appendChild(AqualineSeedImage);
+
+        var AqualineSeedlingImage = new Image();
+        AqualineSeedlingImage.src = "assets/Aqualine-seedling.svg";
+//          document.body.appendChild(AqualineSeedlingImage);
+
+        var AqualineSaplingImage = new Image();
+        AqualineSaplingImage.src = "assets/Aqualine-sapling.svg";
+//           document.body.appendChild(AqualineSaplingImage);
+
+        var AqualineTreeImage = new Image();
+        AqualineTreeImage.src = "assets/Aqualine-tree.png";
+//           document.body.appendChild(AqualineTreeImage);
+
+        var AqualineUltimateImage = new Image();
+        AqualineUltimateImage.src = "assets/Aqualine-ultimate.png";
+//           document.body.appendChild(AqualineUltimateImage);
+
         var Tile = function(x, y, face) {
             this.x = x;
             this.y = y;
@@ -16,7 +63,8 @@ var sketchProc = function(processingInstance) {
             fill(214, 247, 202);
             strokeWeight(2);
             rect(this.x, this.y, this.width, this.width, 10);
-            image(getImage("avatars/leaf-green"), this.x, this.y, this.width, this.width);
+            /*image(LeafImage, this.x, this.y, this.width, this.width); */
+            ctx.drawImage(LeafImage, this.x, this.y, this.width, this.width);
             this.isFaceUp = false;
         };
 
@@ -24,7 +72,7 @@ var sketchProc = function(processingInstance) {
             fill(214, 247, 202);
             strokeWeight(2);
             rect(this.x, this.y, this.width, this.width, 10);
-            image(this.face, this.x, this.y, this.width, this.width);
+            ctx.drawImage(this.face, this.x, this.y, this.width, this.width);
             this.isFaceUp = true;
         };
 
@@ -39,16 +87,16 @@ var sketchProc = function(processingInstance) {
 
         // Declare an array of all possible faces
         var faces = [
-            getImage("avatars/leafers-seed"),
-            getImage("avatars/leafers-seedling"),
-            getImage("avatars/leafers-sapling"),
-            getImage("avatars/leafers-tree"),
-            getImage("avatars/leafers-ultimate"),
-            getImage("avatars/marcimus"),
-            getImage("avatars/mr-pants"),
-            getImage("avatars/mr-pink"),
-            getImage("avatars/old-spice-man"),
-            getImage("avatars/robot_female_1")
+          LeafersSeedImage,
+          LeafersSeedlingImage,
+          LeafersSaplingImage,
+          LeafersTreeImage,
+          LeafersUltimateImage,
+          AqualineSeedImage,
+          AqualineSeedlingImage,
+          AqualineSaplingImage,
+          AqualineTreeImage,
+          AqualineUltimateImage
         ];
 
         // Make an array which has 2 of each, then randomize it
@@ -128,8 +176,8 @@ var sketchProc = function(processingInstance) {
                 flippedTiles = [];
                 delayStartFC = null;
                 noLoop();
-            }
-        };
+            };
+        }
 
 
         /* End of pasted code */
