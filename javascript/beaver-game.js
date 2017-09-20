@@ -5,26 +5,37 @@ var sketchProc = function(processingInstance) {
 
         /* Paste the example code here */
 
+        var ctx = canvas.getContext("2d");
+
+        var HopperHappy = new Image();
+        HopperHappy.src = "assets/Hopper-Happy.png";
+
+        var HopperJumping = new Image();
+        HopperJumping.src = "assets/Hopper-Jumping.png";
+
+        var GrassBlock = new Image();
+        GrassBlock.src = "assets/GrassBlock.png";
+
         var Beaver = function(x, y) {
             this.x = x;
             this.y = y;
-            this.img = getImage("creatures/Hopper-Happy");
+            this.img = HopperHappy;
             this.sticks = 0;
         };
 
         Beaver.prototype.draw = function() {
             fill(255, 0, 0);
             this.y = constrain(this.y, 0, height-50);
-            image(this.img, this.x, this.y, 40, 40);
+            ctx.drawImage(this.img, this.x, this.y, 40, 40);
         };
 
         Beaver.prototype.hop = function() {
-            this.img = getImage("creatures/Hopper-Jumping");
+            this.img = HopperJumping;
             this.y -= 5;
         };
 
         Beaver.prototype.fall = function() {
-            this.img = getImage("creatures/Hopper-Happy");
+            this.img = HopperHappy;
             this.y += 5;
         };
 
@@ -56,7 +67,7 @@ var sketchProc = function(processingInstance) {
 
         var grassXs = [];
         for (var i = 0; i < 25; i++) {
-            grassXs.push(i*20);
+            grassXs.push(i * 20);
         }
 
         draw = function() {
@@ -68,7 +79,7 @@ var sketchProc = function(processingInstance) {
             rect(0, height*0.90, width, height*0.10);
 
             for (var i = 0; i < grassXs.length; i++) {
-                image(getImage("cute/GrassBlock"), grassXs[i], height*0.85, 20, 20);
+                ctx.drawImage(GrassBlock, grassXs[i], height*0.85, 20, 20);
                 grassXs[i] -= 1;
                 if (grassXs[i] <= -20) {
                     grassXs[i] = width;
@@ -94,7 +105,7 @@ var sketchProc = function(processingInstance) {
                 text("Game Over!", 100, 200);
             }
 
-            if (keyIsPressed && keyCode === 0) {
+            if (keyPressed && keyCode === 0) {
                 beaver.hop();
             } else {
                 beaver.fall();
@@ -111,4 +122,4 @@ var sketchProc = function(processingInstance) {
 // Get the canvas that Processing-js will use
 var canvas = document.getElementById("mycanvas");
 // Pass the function sketchProc (defined at the beginning of the file) to Processing's constructor.
-var processingInstance = new Processing(canvas, sketchProc
+var processingInstance = new Processing(canvas, sketchProc);
